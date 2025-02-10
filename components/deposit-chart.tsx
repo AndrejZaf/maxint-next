@@ -1,16 +1,9 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-    ChartConfig,
-    ChartContainer, ChartLegend,
-    ChartLegendContent,
-    ChartTooltip,
-    ChartTooltipContent,
-} from "@/components/ui/chart";
+import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { Deposit } from "@/types/deposit";
-import { createClient } from "@/utils/supabase/client";
-import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { Bar, BarChart, CartesianGrid, Cell, LabelList, XAxis, YAxis } from "recharts";
 
 const chartConfig = {
@@ -18,31 +11,15 @@ const chartConfig = {
         label: "Offer APY",
     },
     offerName: {
-        label: "Offer Name"
+        label: "Offer Name",
     },
     label: {
         color: "hsl(var(--background))",
     },
 } satisfies ChartConfig;
 
-export function DepositChart({ selectedSubTab }: { selectedSubTab: string }) {
-    const supabase = createClient();
-    const [deposits, setDeposits] = useState<Deposit[] | null>([]);
-    const fetchData = async (tab: string) => {
-        const { data, error } = await supabase.from("Deposit")
-            .select("*")
-            .eq("offerCategory", tab)
-            .order("offerAPY", {
-                ascending: false,
-                nullsFirst: false,  // This achieves NULLS LAST
-            }).returns<Deposit[]>();
-        setDeposits(data);
-    };
-
-    useEffect(() => {
-        fetchData(selectedSubTab);
-    }, [selectedSubTab]);
-
+export function DepositChart({ deposits, selectedSubTab }: { selectedSubTab: string, deposits: Deposit[] | null }) {
+    const t = useTranslations("Explore");
     if (!deposits) {
         return null;
     }
@@ -50,7 +27,7 @@ export function DepositChart({ selectedSubTab }: { selectedSubTab: string }) {
     return (
         <Card>
             <CardHeader>
-                <CardTitle>{selectedSubTab}</CardTitle>
+                <CardTitle>{t(selectedSubTab)}</CardTitle>
             </CardHeader>
             <CardContent>
                 <ChartContainer config={chartConfig}>
