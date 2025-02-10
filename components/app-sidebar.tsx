@@ -12,7 +12,7 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
-import { Frame, Map, PieChart } from "lucide-react";
+import { Compass, Frame, Map, PieChart } from "lucide-react";
 import * as React from "react";
 
 const data = {
@@ -23,19 +23,19 @@ const data = {
   },
   projects: [
     {
-      name: "Design Engineering",
-      url: "#",
+      name: "Accounts",
+      url: "/accounts",
       icon: Frame,
     },
     {
-      name: "Sales & Marketing",
-      url: "#",
+      name: "Budget",
+      url: "/budget",
       icon: PieChart,
     },
     {
-      name: "Travel",
-      url: "#",
-      icon: Map,
+      name: "Explore",
+      url: "/explore",
+      icon: Compass,
     },
   ],
 }
