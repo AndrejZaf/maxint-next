@@ -1,0 +1,11 @@
+{
+  "LocaleSwitcher": {
+    "en": "English",
+    "es": "Spanish"
+  },
+  "Sidebar": {
+    "accounts": "Organization",
+    "budget": "Monitoring Center",
+    "explore": "Employees"
+  }
+}

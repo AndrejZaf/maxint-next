@@ -1,0 +1,11 @@
+{
+  "LocaleSwitcher": {
+    "en": "Inglés",
+    "es": "Español"
+  },
+  "Sidebar": {
+    "accounts": "Cuentas",
+    "budget": "Presupuesto",
+    "explore": "Explorar"
+  }
+}
