@@ -4,6 +4,15 @@ import { CircleDollarSign, CreditCard } from "lucide-react";
 
 const ExplorePage = async () => {
     const supabase = await createClient();
+    const { data, error } = await supabase
+        .from("Deposit")
+        .select("*")
+        .eq("offerCategory", "checking")
+        .order("offerAPY", {
+            ascending: false,
+            nullsFirst: false,  // This achieves NULLS LAST
+        });
+    console.log(data);
     return (
         <div className="container space-y-4">
             <h1 className="text-3xl font-semibold">Explore</h1>

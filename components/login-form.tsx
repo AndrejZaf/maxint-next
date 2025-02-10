@@ -1,3 +1,4 @@
+import { demoLogin } from "@/actions/auth/demo-login.action";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -5,10 +6,7 @@ import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { ComponentPropsWithoutRef } from "react";
 
-export function LoginForm({
-                              className,
-                              ...props
-                          }: ComponentPropsWithoutRef<"div">) {
+export function LoginForm({ className, ...props }: ComponentPropsWithoutRef<"div">) {
     return (
         <div className={cn("flex flex-col gap-6", className)} {...props}>
             <Card>
@@ -59,6 +57,9 @@ export function LoginForm({
                                 </div>
                                 <Button type="submit" className="w-full">
                                     Login
+                                </Button>
+                                <Button variant="secondary" className="w-full" onClick={demoLogin}>
+                                    Try Demo
                                 </Button>
                             </div>
                         </div>
