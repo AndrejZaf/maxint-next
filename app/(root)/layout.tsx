@@ -2,12 +2,9 @@ import { AppSidebar } from "@/components/app-sidebar";
 import Breadcrumbs from "@/components/breadcrumb";
 import { Separator } from "@/components/ui/separator";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { ReactNode } from "react";
 
-export default function RootLayout({
-                                       children,
-                                   }: Readonly<{
-    children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: ReactNode; }>) {
     return (
         <SidebarProvider>
             <AppSidebar />
