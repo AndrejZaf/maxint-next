@@ -7,5 +7,32 @@
     "accounts": "Cuentas",
     "budget": "Presupuesto",
     "explore": "Explorar"
+  },
+  "Explore": {
+    "explore": "Explorar",
+    "deposit": "Depósito",
+    "credit": "Crédito",
+    "businessChecking": "Cuenta Corriente Empresarial",
+    "businessSavings": "Cuenta de Ahorros Empresarial",
+    "checking": "Cuenta Corriente",
+    "childrensSavings": "Cuenta de Ahorros Infantil",
+    "healthSavings": "Cuenta de Ahorros para Salud",
+    "installmentSavings": "Cuenta de Ahorros a Plazos",
+    "rewardChecking": "Cuenta Corriente con Recompensas",
+    "savings": "Ahorros",
+    "airline": "Aerolínea",
+    "best": "Mejor",
+    "bonuses": "Bonificaciones",
+    "business": "Empresas",
+    "gas": "Gasolina",
+    "hotel": "Hotel",
+    "lowInterest": "Bajas Tasas de Interés",
+    "noAnnualFee": "Sin Cuota Anual",
+    "noForeignTransactionFee": "Sin Comisión por Transacciones en el Extranjero",
+    "rewards": "Recompensas",
+    "student": "Estudiantes",
+    "transfer": "Transferencia",
+    "travel": "Viajes",
+    "zeroInterest": "Interés Cero"
   }
 }

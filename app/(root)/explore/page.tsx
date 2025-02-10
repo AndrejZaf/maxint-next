@@ -1,45 +1,36 @@
+"use client";
+
 import ExploreTabs from "@/components/explore/explore-tabs";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { AvailableCategory } from "@/types/available-category";
-import { createClient } from "@/utils/supabase/server";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CircleDollarSign, CreditCard } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { useState } from "react";
 
-const ExplorePage = async () => {
-    const supabase = await createClient();
-    const { data: availableCategories, error: availableCategoriesError } = await supabase
-        .from("DepositAvailableCategories")
-        .select("*")
-        .returns<AvailableCategory[]>();
-
-    const { data, error } = await supabase
-        .from("Deposit")
-        .select("*")
-        .eq("offerCategory", "checking")
-        .order("offerAPY", {
-            ascending: false,
-            nullsFirst: false,  // This achieves NULLS LAST
-        });
+const ExplorePage = () => {
+    const [selectedTab, setSelectedTab] = useState<string>("deposit");
+    const t = useTranslations("Explore");
     return (
         <div className="container space-y-4">
-            <h1 className="text-3xl font-semibold">Explore</h1>
-            <Tabs defaultValue="deposit">
+            <h1 className="text-3xl font-semibold">{t("explore")}</h1>
+            <Tabs defaultValue={selectedTab} onValueChange={async (val) => {
+                setSelectedTab(val);
+            }}>
                 <TabsList>
                     <TabsTrigger value="deposit">
                         <div className="flex items-center gap-2">
                             <CircleDollarSign size={16} />
-                            Deposit
+                            {t("deposit")}
                         </div>
                     </TabsTrigger>
                     <TabsTrigger value="credit">
                         <div className="flex items-center gap-2">
                             <CreditCard size={16} />
-                            Credit
+                            {t("credit")}
                         </div>
                     </TabsTrigger>
                 </TabsList>
-                <TabsContent value="deposit"><ExploreTabs tabs={availableCategories ?? []} /></TabsContent>
-                <TabsContent value="credit">Change your password here.</TabsContent>
             </Tabs>
+            <ExploreTabs selectedTab={selectedTab} />
         </div>
     );
 };

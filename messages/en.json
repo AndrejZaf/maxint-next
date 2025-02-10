@@ -4,8 +4,35 @@
     "es": "Spanish"
   },
   "Sidebar": {
-    "accounts": "Organization",
-    "budget": "Monitoring Center",
-    "explore": "Employees"
+    "accounts": "Accounts",
+    "budget": "Budget",
+    "explore": "Explore"
+  },
+  "Explore": {
+    "explore": "Explore",
+    "deposit": "Deposit",
+    "credit": "Credit",
+    "businessChecking": "Business Checking",
+    "businessSavings": "Business Savings",
+    "checking": "Checking",
+    "childrensSavings": "Childrens Savings",
+    "healthSavings": "Health Savings",
+    "installmentSavings": "Installment Savings",
+    "rewardChecking": "Reward Checking",
+    "savings": "Savings",
+    "airline": "Airline",
+    "best": "Best",
+    "bonuses": "Bonuses",
+    "business": "Business",
+    "gas": "Gas",
+    "hotel": "Hotel",
+    "lowInterest": "Low Interest",
+    "noAnnualFee": "No Annual Fee",
+    "noForeignTransactionFee": "No Foreign Transaction Fee",
+    "rewards": "Rewards",
+    "student": "Student",
+    "transfer": "Transfer",
+    "travel": "Travel",
+    "zeroInterest": "Zero Interest"
   }
 }
