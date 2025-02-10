@@ -1,11 +1,20 @@
+import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Deposit } from "@/types/deposit";
-import React from "react";
+import React, { useState } from "react";
 
 
 const ExploreCards = ({ deposits }: { deposits: Deposit[] | null }) => {
+    const [searchInput, setSearchInput] = useState("");
+
+    const filterData = (filterParam: string) => {
+        return deposits?.filter(deposit => deposit.offerName.toLowerCase().includes(filterParam.toLowerCase()) || deposit.bankName.toLowerCase().includes(filterParam.toLowerCase()));
+    };
+
     return (
         <>
+            <Input placeholder="Filter offers by bank name or offer name" value={searchInput}
+                   onChange={(event) => setSearchInput(event.target.value)} />
             <Table>
                 <TableHeader>
                     <TableRow>
@@ -16,7 +25,7 @@ const ExploreCards = ({ deposits }: { deposits: Deposit[] | null }) => {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {deposits?.map((deposit) => (
+                    {filterData(searchInput)?.map((deposit) => (
                         <TableRow key={deposit.bankName}>
                             <TableCell className="font-medium"><img className="h-6" src={deposit.imageExternalUrl} />
                             </TableCell>
