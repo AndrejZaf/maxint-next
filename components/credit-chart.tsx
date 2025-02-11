@@ -2,25 +2,26 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
-import { Deposit } from "@/types/deposit";
+import { Credit } from "@/types/credit";
+import { generateGreenHSLColors } from "@/utils/color.util";
 import { useTranslations } from "next-intl";
 import { Bar, BarChart, CartesianGrid, Cell, LabelList, XAxis, YAxis } from "recharts";
 
 const chartConfig = {
-    offerAPY: {
-        label: "Offer APY",
+    estimatedEarning: {
+        label: "Estimated Earning",
     },
-    offerName: {
-        label: "Offer Name",
+    name: {
+        label: "Name",
     },
     label: {
         color: "hsl(var(--background))",
     },
 } satisfies ChartConfig;
 
-export function DepositChart({ deposits, selectedSubTab }: { selectedSubTab: string, deposits: Deposit[] | null }) {
+export function CreditChart({ credits, selectedSubTab }: { selectedSubTab: string, credits: Credit[] | null }) {
     const t = useTranslations("Explore");
-    if (!deposits) {
+    if (!credits) {
         return null;
     }
 
@@ -34,16 +35,16 @@ export function DepositChart({ deposits, selectedSubTab }: { selectedSubTab: str
                     <BarChart
                         className="h-[350px]"
                         accessibilityLayer
-                        data={deposits}
+                        data={credits}
                         layout="horizontal"
                     >
                         <CartesianGrid vertical={false} />
                         <YAxis
-                            dataKey="offerAPY" type="number"
+                            dataKey="estimatedEarning" type="number"
                             hide
                         />
                         <XAxis
-                            dataKey="offerName"
+                            dataKey="name"
                             type="category"
                             tickLine={false}
                             tickMargin={10}
@@ -55,13 +56,13 @@ export function DepositChart({ deposits, selectedSubTab }: { selectedSubTab: str
                             content={<ChartTooltipContent indicator="line" />}
                         />
                         <Bar
-                            dataKey="offerAPY"
+                            dataKey="estimatedEarning"
                             layout="horizontal"
                             fill="var(--color-desktop)"
                             radius={4}
                         >
                             <LabelList
-                                dataKey="offerName"
+                                dataKey="name"
                                 position="middle"
                                 offset={2}
                                 className="fill-[--color-label]"
@@ -69,18 +70,21 @@ export function DepositChart({ deposits, selectedSubTab }: { selectedSubTab: str
                                 angle={-90}
                             />
                             <LabelList
-                                dataKey="offerAPY"
+                                dataKey="estimatedEarning"
                                 position="top"
                                 offset={2}
                                 className="fill-foreground"
                                 fontSize={12}
                             />
-                            {deposits.map((item) => (
-                                <Cell
-                                    key={item.offerName}
-                                    fill={"#" + (Math.random() * 0xFFFFFF << 0).toString(16).padStart(6, "0")}
-                                />
-                            ))}
+                            {credits.map((item, index) => {
+                                const colors = generateGreenHSLColors(credits.length);
+                                return (
+                                    <Cell
+                                        key={item.name}
+                                        fill={`hsl(${colors[index]})`}
+                                    />
+                                );
+                            })}
                         </Bar>
                     </BarChart>
                 </ChartContainer>

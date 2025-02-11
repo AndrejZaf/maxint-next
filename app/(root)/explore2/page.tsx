@@ -1,10 +1,13 @@
 "use client";
 
 import { getCategories } from "@/actions/explore/get-categories.action";
+import { getCredits } from "@/actions/explore/get-credits.action";
 import { getDeposits } from "@/actions/explore/get-deposits.action";
+import { CreditChart } from "@/components/credit-chart";
 import { DepositChart } from "@/components/deposit-chart";
 import ExploreCards from "@/components/explore/explore-cards";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Credit } from "@/types/credit";
 import { Deposit } from "@/types/deposit";
 import { ExploreCategory } from "@/types/explore-category";
 import { CircleDollarSign } from "lucide-react";
@@ -16,6 +19,7 @@ const ExploreSecondaryPage = () => {
     const [selectedTab, setSelectedTab] = useState<string>("deposit");
     const t = useTranslations("Explore");
     const [deposits, setDeposits] = useState<Deposit[] | null>([]);
+    const [credits, setCredits] = useState<Credit[] | null>([]);
     const [error, setError] = useState<string | undefined>();
     const [tabs, setTabs] = useState<ExploreCategory[] | null>([]);
     const [selectedSubTab, setSelectedSubTab] = useState<string | null>();
@@ -24,13 +28,27 @@ const ExploreSecondaryPage = () => {
         setTabs(data);
         setSelectedSubTab(data && data[0].offerCategory);
         setError(error?.name);
-        await fetchDeposits(data && data[0].offerCategory);
+        if (tab === "deposit") {
+            await fetchDeposits(data && data[0].offerCategory);
+        } else {
+            await fetchCredits(data && data[0].offerCategory);
+        }
     };
 
     const fetchDeposits = async (tab: string | null) => {
         if (!tab) return;
         const { data, error } = await getDeposits(tab);
+        setCredits(null);
         setDeposits(data);
+        setError(error?.name);
+    };
+
+    const fetchCredits = async (tab: string | null) => {
+        console.log(tab)
+        if (!tab) return;
+        const { data, error } = await getCredits(tab);
+        setDeposits(null);
+        setCredits(data);
         setError(error?.name);
     };
 
@@ -60,7 +78,11 @@ const ExploreSecondaryPage = () => {
                 </Select>
                 <Select defaultValue={selectedSubTab ?? ""} value={selectedSubTab ?? ""} onValueChange={async (val) => {
                     setSelectedSubTab(val);
-                    await fetchDeposits(val);
+                    if(selectedTab === "deposit") {
+                        await fetchDeposits(val);
+                    } else {
+                        await fetchCredits(val);
+                    }
                 }}>
                     <SelectTrigger className="w-[180px]">
                         <SelectValue placeholder="Select" />
@@ -77,8 +99,10 @@ const ExploreSecondaryPage = () => {
                     </SelectContent>
                 </Select>
             </div>
-            {deposits && selectedSubTab && <DepositChart deposits={deposits} selectedSubTab={selectedSubTab} />}
-            <ExploreCards deposits={deposits} />
+            {deposits && selectedSubTab ? (<><DepositChart deposits={deposits}
+                                                           selectedSubTab={selectedSubTab} /><ExploreCards
+                deposits={deposits} /></>) : ""}
+            {credits && selectedSubTab ? (<><CreditChart credits={credits} selectedSubTab={selectedSubTab} /></>) : ""}
         </div>
     );
 };

@@ -3,6 +3,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 import { Deposit } from "@/types/deposit";
+import { generateGreenHSLColors } from "@/utils/color.util";
 import { useTranslations } from "next-intl";
 import { Bar, BarChart, CartesianGrid, Cell, LabelList, XAxis, YAxis } from "recharts";
 
@@ -75,12 +76,15 @@ export function DepositChart({ deposits, selectedSubTab }: { selectedSubTab: str
                                 className="fill-foreground"
                                 fontSize={12}
                             />
-                            {deposits.map((item) => (
-                                <Cell
-                                    key={item.offerName}
-                                    fill={"#" + (Math.random() * 0xFFFFFF << 0).toString(16).padStart(6, "0")}
-                                />
-                            ))}
+                            {deposits.map((item, index) => {
+                                const colors = generateGreenHSLColors(deposits.length);
+                                return (
+                                    <Cell
+                                        key={item.offerName}
+                                        fill={`hsl(${colors[index]})`}
+                                    />
+                                );
+                            })}
                         </Bar>
                     </BarChart>
                 </ChartContainer>
