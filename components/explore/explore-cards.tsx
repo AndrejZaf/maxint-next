@@ -27,7 +27,7 @@ const ExploreCards = ({ deposits }: { deposits: Deposit[] | null }) => {
                 <TableBody>
                     {filterData(searchInput)?.map((deposit) => (
                         <TableRow key={deposit.bankName}>
-                            <TableCell className="font-medium"><img className="h-6" src={deposit.imageExternalUrl} />
+                            <TableCell className="font-medium"><img alt={deposit.bankName} className="h-6" src={deposit.imageExternalUrl} />
                             </TableCell>
                             <TableCell className="font-medium">{deposit.bankName}</TableCell>
                             <TableCell>{deposit.offerName}</TableCell>
