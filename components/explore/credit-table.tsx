@@ -1,14 +1,14 @@
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { Deposit } from "@/types/deposit";
+import { Credit } from "@/types/credit";
 import React, { useState } from "react";
 
 
-const ExploreCards = ({ deposits }: { deposits: Deposit[] | null }) => {
+const CreditTable = ({ credits }: { credits: Credit[] | null }) => {
     const [searchInput, setSearchInput] = useState("");
 
     const filterData = (filterParam: string) => {
-        return deposits?.filter(deposit => deposit.offerName.toLowerCase().includes(filterParam.toLowerCase()) || deposit.bankName.toLowerCase().includes(filterParam.toLowerCase()));
+        return credits?.filter(credit => credit.name.toLowerCase().includes(filterParam.toLowerCase()) || credit.introBonus.toLowerCase().includes(filterParam.toLowerCase()));
     };
 
     return (
@@ -25,13 +25,13 @@ const ExploreCards = ({ deposits }: { deposits: Deposit[] | null }) => {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {filterData(searchInput)?.map((deposit) => (
-                        <TableRow key={deposit.bankName}>
-                            <TableCell className="font-medium"><img alt={deposit.bankName} className="h-6" src={deposit.imageExternalUrl} />
+                    {filterData(searchInput)?.map((credit) => (
+                        <TableRow key={credit.name}>
+                            <TableCell className="font-medium"><img alt={credit.name} className="h-6" src={credit.imageExternalUrl} />
                             </TableCell>
-                            <TableCell className="font-medium">{deposit.bankName}</TableCell>
-                            <TableCell>{deposit.offerName}</TableCell>
-                            <TableCell className="text-right">{deposit.offerAPY}%</TableCell>
+                            <TableCell className="font-medium">{credit.name}</TableCell>
+                            <TableCell>{credit.introBonus}</TableCell>
+                            <TableCell className="text-right">{credit.estimatedEarning}$</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
@@ -39,4 +39,4 @@ const ExploreCards = ({ deposits }: { deposits: Deposit[] | null }) => {
         </>
     );
 };
-export default ExploreCards;
+export default CreditTable;

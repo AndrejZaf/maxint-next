@@ -1,7 +1,7 @@
 import { getCategories } from "@/actions/explore/get-categories.action";
 import { getDeposits } from "@/actions/explore/get-deposits.action";
 import { DepositChart } from "@/components/deposit-chart";
-import ExploreCards from "@/components/explore/explore-cards";
+import DepositTable from "@/components/explore/deposit-table";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -41,7 +41,7 @@ const ExploreTabs = ({ selectedTab }: { selectedTab: string }) => {
             {/*    </ScrollArea>*/}
             {/*</Tabs>*/}
             {/*{deposits && selectedSubTab && <DepositChart deposits={deposits} selectedSubTab={selectedSubTab} />}*/}
-            {/*<ExploreCards deposits={deposits} />*/}
+            {/*<DepositTable deposits={deposits} />*/}
         </>
     );
 };

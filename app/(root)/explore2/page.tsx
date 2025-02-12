@@ -5,7 +5,8 @@ import { getCredits } from "@/actions/explore/get-credits.action";
 import { getDeposits } from "@/actions/explore/get-deposits.action";
 import { CreditChart } from "@/components/credit-chart";
 import { DepositChart } from "@/components/deposit-chart";
-import ExploreCards from "@/components/explore/explore-cards";
+import CreditTable from "@/components/explore/credit-table";
+import DepositTable from "@/components/explore/deposit-table";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Credit } from "@/types/credit";
 import { Deposit } from "@/types/deposit";
@@ -44,7 +45,6 @@ const ExploreSecondaryPage = () => {
     };
 
     const fetchCredits = async (tab: string | null) => {
-        console.log(tab)
         if (!tab) return;
         const { data, error } = await getCredits(tab);
         setDeposits(null);
@@ -78,7 +78,7 @@ const ExploreSecondaryPage = () => {
                 </Select>
                 <Select defaultValue={selectedSubTab ?? ""} value={selectedSubTab ?? ""} onValueChange={async (val) => {
                     setSelectedSubTab(val);
-                    if(selectedTab === "deposit") {
+                    if (selectedTab === "deposit") {
                         await fetchDeposits(val);
                     } else {
                         await fetchCredits(val);
@@ -99,10 +99,13 @@ const ExploreSecondaryPage = () => {
                     </SelectContent>
                 </Select>
             </div>
-            {deposits && selectedSubTab ? (<><DepositChart deposits={deposits}
-                                                           selectedSubTab={selectedSubTab} /><ExploreCards
-                deposits={deposits} /></>) : ""}
-            {credits && selectedSubTab ? (<><CreditChart credits={credits} selectedSubTab={selectedSubTab} /></>) : ""}
+            {deposits && selectedSubTab ? (<>
+                <DepositChart deposits={deposits} selectedSubTab={selectedSubTab} />
+                <DepositTable deposits={deposits} /></>) : ""}
+            {credits && selectedSubTab ? (<>
+                <CreditChart credits={credits} selectedSubTab={selectedSubTab} />
+                <CreditTable credits={credits} />
+            </>) : ""}
         </div>
     );
 };
