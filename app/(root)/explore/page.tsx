@@ -2,7 +2,7 @@
 
 import ExploreTabs from "@/components/explore/explore-tabs";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CircleDollarSign, CreditCard } from "lucide-react";
+import { getIcon } from "@/utils/icon.util";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 
@@ -18,13 +18,13 @@ const ExplorePage = () => {
                 <TabsList>
                     <TabsTrigger value="deposit">
                         <div className="flex items-center gap-2">
-                            <CircleDollarSign size={16} />
+                            {getIcon("deposit")}
                             {t("deposit")}
                         </div>
                     </TabsTrigger>
                     <TabsTrigger value="credit">
                         <div className="flex items-center gap-2">
-                            <CreditCard size={16} />
+                            {getIcon("credit")}
                             {t("credit")}
                         </div>
                     </TabsTrigger>

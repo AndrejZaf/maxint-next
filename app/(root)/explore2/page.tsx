@@ -11,7 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Credit } from "@/types/credit";
 import { Deposit } from "@/types/deposit";
 import { ExploreCategory } from "@/types/explore-category";
-import { CircleDollarSign } from "lucide-react";
+import { getIcon } from "@/utils/icon.util";
 import { useTranslations } from "next-intl";
 import React, { useEffect, useState } from "react";
 
@@ -72,8 +72,16 @@ const ExploreSecondaryPage = () => {
                         <SelectValue placeholder="Select" />
                     </SelectTrigger>
                     <SelectContent>
-                        <SelectItem value="deposit">{t("deposit")}</SelectItem>
-                        <SelectItem value="credit">{t("credit")}</SelectItem>
+                        <SelectItem value="deposit">
+                            <div className="flex items-center gap-2">
+                                {getIcon("deposit")}{t("deposit")}
+                            </div>
+                        </SelectItem>
+                        <SelectItem value="credit">
+                            <div className="flex items-center gap-2">
+                                {getIcon("credit")}{t("credit")}
+                            </div>
+                        </SelectItem>
                     </SelectContent>
                 </Select>
                 <Select defaultValue={selectedSubTab ?? ""} value={selectedSubTab ?? ""} onValueChange={async (val) => {
@@ -91,7 +99,7 @@ const ExploreSecondaryPage = () => {
                         {tabs && tabs.sort((a, b) => a.offerCategory.localeCompare(b.offerCategory)).map(category => {
                             return <SelectItem value={category.offerCategory} key={category.offerCategory}>
                                 <div className="flex items-center gap-2">
-                                    <CircleDollarSign size={16} />
+                                    {getIcon(category.offerCategory)}
                                     {t(category.offerCategory)}
                                 </div>
                             </SelectItem>;

@@ -10,7 +10,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Credit } from "@/types/credit";
 import { Deposit } from "@/types/deposit";
 import { ExploreCategory } from "@/types/explore-category";
-import { CircleDollarSign } from "lucide-react";
+import { getIcon } from "@/utils/icon.util";
 import { useTranslations } from "next-intl";
 import React, { useEffect, useState } from "react";
 
@@ -54,7 +54,6 @@ const ExploreTabs = ({ selectedTab }: { selectedTab: string }) => {
         fetchData(selectedTab);
     }, [selectedTab]);
 
-    console.log(credits)
     if (!selectedSubTab || !tabs || error) {
         return null;
     }
@@ -76,7 +75,7 @@ const ExploreTabs = ({ selectedTab }: { selectedTab: string }) => {
                             {tabs && tabs.sort((a, b) => a.offerCategory.localeCompare(b.offerCategory)).map(category => {
                                 return <TabsTrigger value={category.offerCategory} key={category.offerCategory}>
                                     <div className="flex items-center gap-2">
-                                        <CircleDollarSign size={16} />
+                                        {getIcon(category.offerCategory)}
                                         {t(category.offerCategory)}
                                     </div>
                                 </TabsTrigger>;
