@@ -7,6 +7,7 @@ import { CreditChart } from "@/components/credit-chart";
 import { DepositChart } from "@/components/deposit-chart";
 import CreditTable from "@/components/explore/credit-table";
 import DepositTable from "@/components/explore/deposit-table";
+import Loading from "@/components/loading";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Credit } from "@/types/credit";
 import { Deposit } from "@/types/deposit";
@@ -24,6 +25,7 @@ const ExploreSecondaryPage = () => {
     const [error, setError] = useState<string | undefined>();
     const [tabs, setTabs] = useState<ExploreCategory[] | null>([]);
     const [selectedSubTab, setSelectedSubTab] = useState<string | null>();
+    const [loading, setLoading] = useState<boolean>(true);
     const fetchData = async (tab: string) => {
         const { data, error } = await getCategories(tab);
         setTabs(data);
@@ -38,18 +40,22 @@ const ExploreSecondaryPage = () => {
 
     const fetchDeposits = async (tab: string | null) => {
         if (!tab) return;
+        setLoading(true);
         const { data, error } = await getDeposits(tab);
         setCredits(null);
         setDeposits(data);
         setError(error?.name);
+        setLoading(false);
     };
 
     const fetchCredits = async (tab: string | null) => {
         if (!tab) return;
+        setLoading(true);
         const { data, error } = await getCredits(tab);
         setDeposits(null);
         setCredits(data);
         setError(error?.name);
+        setLoading(false);
     };
 
     useEffect(() => {
@@ -58,6 +64,10 @@ const ExploreSecondaryPage = () => {
 
     if (error) {
         return null;
+    }
+
+    if (loading) {
+        return <Loading />;
     }
 
     return (
